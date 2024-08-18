@@ -25,11 +25,11 @@
 |--------------------|---------------------|--------------------------------|
 | name               | string              | null: false                    |
 | info               | text                | null: false                    |
-| category_id        | integer             | null: false, foreign_key: true |
-| status_id          | integer             | null: false, foreign_key: true |
-| cost_id            | integer             | null: false, foreign_key: true |
-| prefecture_id      | integer             | null: false, foreign_key: true |
-| day_id             | integer             | null: false, foreign_key: true |
+| category_id        | integer             | null: false                    |
+| status_id          | integer             | null: false                    |
+| cost_id            | integer             | null: false                    |
+| prefecture_id      | integer             | null: false                    |
+| day_id             | integer             | null: false                    |
 | price              | integer             | null: false                    |
 | user               | references          | null: false, foreign_key:true  |
 
@@ -65,9 +65,9 @@
 | Column             | Type                | Options                        |
 |--------------------|---------------------|--------------------------------|
 | postal_code        | string              | null: false                    |
-| prefecture_id      | integer             | null: false, foreign_key: true |
+| prefecture_id      | integer             | null: false                    |
 | city               | string              | null: false                    |
-| street_adress      | stirng              | null: false                    |
+| street_adress      | string              | null: false                    |
 | building_name      | string              |                                |
 | phone_number       | string              | null: false                    |
 | order              | references          | null: false, foreign_key:true  |
