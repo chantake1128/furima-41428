@@ -35,7 +35,7 @@ class User < ApplicationRecord
     end
 
     def validate_password_format
-      unless password =~ /\A(?=.*[a-zA-Z])(?=.*\d).+\z/
+      unless password = /\A(?=.*?[a-z])(?=.*?[\d])[a-z\d]+\z/i
         errors.add(:password, 'must include both letters and numbers')
       end
     end
