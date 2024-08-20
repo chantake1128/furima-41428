@@ -12,6 +12,7 @@ class User < ApplicationRecord
     validates :first_name_kana,    presence: true
   
     validate :validate_full_width_characters
+    validate :validate_password_format, if: -> { password.present? }
   
     private
   
@@ -24,12 +25,18 @@ class User < ApplicationRecord
         errors.add(:first_name, "is invalid. Input full-width characters")
       end
   
-      if last_name_kana.present? && last_name_kana !~ /\A[ァ-ヶ]+\z/
+      if last_name_kana.present? && last_name_kana !~ /\A[ァ-ヶー]+\z/
         errors.add(:last_name_kana, "is invalid. Input full-width katakana characters")
       end
   
-      if first_name_kana.present? && first_name_kana !~ /\A[ァ-ヶ]+\z/
+      if first_name_kana.present? && first_name_kana !~ /\A[ァ-ヶー]+\z/
         errors.add(:first_name_kana, "is invalid. Input full-width katakana characters")
+      end
+    end
+
+    def validate_password_format
+      unless password =~ /\A(?=.*[a-zA-Z])(?=.*\d).+\z/
+        errors.add(:password, 'must include both letters and numbers')
       end
     end
   end
