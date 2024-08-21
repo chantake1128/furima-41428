@@ -1,6 +1,5 @@
 FactoryBot.define do
   factory :item do
-    image         { Faker::LoremPixel.image } # ここでFakerを使用してランダムな画像URLを生成
     name          { Faker::Commerce.product_name }
     info          { Faker::Lorem.sentence }
     category_id   { rand(2..11) } 
@@ -9,5 +8,12 @@ FactoryBot.define do
     prefecture_id { rand(2..48) } 
     day_id        { rand(2..4) }  
     price         { rand(300..9_999_999) }
+
+    association :user
+
+    after(:build) do |item|
+      item.image.attach(io: File.open('public/images/image-generation-ai.jpg'), filename: 'image-generation-ai.jpg')
+    end
+    
   end
 end
