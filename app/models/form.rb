@@ -7,6 +7,7 @@ class Form
   validates :prefecture_id,         numericality: { other_than: 1, message: "can't be blank"}
   validates :city,                  presence: true
   validates :street_address,        presence: true
+  validates :phone_number,          presence: true
 
   def save
     return false unless valid?
@@ -24,7 +25,8 @@ class Form
       )
     end
     true
-  rescue ActiveRecord::RecordInvalid
+  rescue ActiveRecord::RecordInvalid => e
+    Rails.logger.error("Transaction failed: #{e.record.errors.full_messages.join(", ")}")
     false
   end
 end
