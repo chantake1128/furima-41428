@@ -4,7 +4,7 @@ class Item < ApplicationRecord
   has_one_attached :image
 
   belongs_to :user
-  #has_one    :order
+  has_one    :order
 
 # ActiveHashの関連付け
   belongs_to_active_hash :category
