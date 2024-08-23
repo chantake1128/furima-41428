@@ -2,6 +2,7 @@ class OrdersController < ApplicationController
   before_action :set_item, only:[:index, :create]
 
   def index
+    gon.public_key = ENV["PAYJP_PUBLIC_KEY_TEST"]
     @form = Form.new
   end
 
@@ -10,8 +11,10 @@ class OrdersController < ApplicationController
     @form.user_id = current_user.id
     @form.item_id = @item.id
     if @form.save
+      pay_item
       redirect_to root_path
     else
+      gon.public_key = ENV["PAYJP_PUBLIC_KEY_TEST"]
       render :index, status: :unprocessable_entity
     end
   end
@@ -27,6 +30,17 @@ class OrdersController < ApplicationController
       :user_id, :item_id,
       #下はdeliveryテーブル
       :postal_code, :prefecture_id, :city, :street_address, :building_name, :phone_number)
+      #下はクレジット決済のトークン
+      .merge(token: params[:token])
+  end
+
+  def pay_item
+    Payjp.api_key = ENV["PAYJP_SECRET_KEY_TEST"]
+    Payjp::Charge.create(
+      amount: @item.price,
+      card: params[:token],
+      currency: 'jpy'
+    )
   end
 
 end
