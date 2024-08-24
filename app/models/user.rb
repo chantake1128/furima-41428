@@ -4,7 +4,7 @@ class User < ApplicationRecord
     devise :database_authenticatable, :registerable,
            :recoverable, :rememberable, :validatable
     has_many :items
-    #has_many :orders
+    has_many :orders
   
     validates :nickname,           presence: true
     validates :birth_day,          presence: true
@@ -37,7 +37,7 @@ class User < ApplicationRecord
     end
 
     def validate_password_format
-      unless password = /\A(?=.*?[a-z])(?=.*?[\d])[a-z\d]+\z/i
+      unless password =~ /\A(?=.*?[a-z])(?=.*?[\d])[a-z\d]+\z/i
         errors.add(:password, 'must include both letters and numbers')
       end
     end

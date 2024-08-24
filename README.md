@@ -67,10 +67,10 @@
 | postal_code        | string              | null: false                    |
 | prefecture_id      | integer             | null: false                    |
 | city               | string              | null: false                    |
-| street_adress      | string              | null: false                    |
+| street_address     | string              | null: false                    |
 | building_name      | string              |                                |
 | phone_number       | string              | null: false                    |
-| order              | references          | null: false, foreign_key:true  |
+| order              | references          | null: false, foreign_key: true |
 
 ### Association
 

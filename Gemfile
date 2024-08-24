@@ -86,3 +86,5 @@ end
 
 gem 'active_hash'
 gem 'devise'
+gem 'payjp'
+gem 'gon'

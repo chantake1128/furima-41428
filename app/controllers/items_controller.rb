@@ -24,6 +24,9 @@ class ItemsController < ApplicationController
   end
   
   def edit
+    if Order.where(item_id: @item.id).exists?
+      redirect_to root_path
+    end
   end
 
   def destroy
@@ -42,7 +45,7 @@ class ItemsController < ApplicationController
     private
 
     def set_item
-      @item = Item.find(params[:id])
+      @item = Item.includes(:user).find(params[:id])
     end
 
     def item_params
