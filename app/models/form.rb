@@ -2,15 +2,19 @@ class Form
   include ActiveModel::Model
   include ActiveModel::Attributes
   attr_accessor :user_id, :item_id, :postal_code, :prefecture_id, :city, :street_address, :building_name, :phone_number, :order_id, :token
+
  # building_nameは必須ではないためvalidatesは設定していません
-  validates :postal_code,           presence: true
+  with_options presence: true do
+    validates :postal_code
+    validates :city
+    validates :street_address
+    validates :phone_number
+    validates :user_id
+    validates :item_id
+    validates :token
+  end
+  
   validates :prefecture_id,         numericality: { other_than: 1, message: "can't be blank"}
-  validates :city,                  presence: true
-  validates :street_address,        presence: true
-  validates :phone_number,          presence: true
-  validates :user_id,               presence: true
-  validates :item_id,               presence: true
-  validates :token,                 presence: true
   validate  :check_postal_code_format
   validate  :validate_phone_number_format
 

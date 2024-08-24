@@ -36,7 +36,6 @@ class OrdersController < ApplicationController
 
   def form_params
     params.require(:form).permit(
-      :user_id, :item_id,
       #下はdeliveryテーブル
       :postal_code, :prefecture_id, :city, :street_address, :building_name, :phone_number)
       #下はクレジット決済のトークン
