@@ -29,4 +29,4 @@ const pay = () => {
 };
 
 window.addEventListener("load", pay);
-window.addEventListener("render", pay);
+window.addEventListener("render", pay)

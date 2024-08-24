@@ -2,9 +2,18 @@ class OrdersController < ApplicationController
   before_action :set_item, only:[:index, :create]
 
   def index
-    gon.public_key = ENV["PAYJP_PUBLIC_KEY_TEST"]
-    @form = Form.new
+    if !user_signed_in?
+      redirect_to new_user_session_path
+    elsif current_user != @item.user && Order.where(item_id: @item.id).exists?
+      redirect_to root_path
+    elsif current_user == @item.user
+      redirect_to root_path
+    else
+      gon.public_key = ENV["PAYJP_PUBLIC_KEY_TEST"]
+      @form = Form.new
+    end
   end
+    
 
   def create
     @form = Form.new(form_params)
