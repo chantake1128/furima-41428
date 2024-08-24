@@ -9,7 +9,7 @@ RSpec.describe Form, type: :model do
 
   describe '商品購入機能' do
     context '商品を購入できる場合' do
-      it 'user_id,item_id,postal_code,prefecture_id,city,street_address,phone_numberがある場合購入できる' do
+      it 'user_id,item_id,postal_code,prefecture_id,city,street_address,phone_number,tokenがある場合購入できる' do
         expect(@form).to be_valid
       end
       it 'building_nameが空でも購入できる'do
@@ -103,6 +103,11 @@ RSpec.describe Form, type: :model do
         @form.phone_number = '亜伊宇4567890'
         @form.valid?
         expect(@form.errors.full_messages).to include( "Phone number is invalid. Only numbers are allowed")
+      end
+      it 'tokenが空の場合購入できない' do
+        @form.token = nil
+        @form.valid?
+        expect(@form.errors.full_messages).to include("Token can't be blank")
       end
     end
   end

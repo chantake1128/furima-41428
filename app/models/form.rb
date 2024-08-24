@@ -10,9 +10,10 @@ class Form
   validates :phone_number,          presence: true
   validates :user_id,               presence: true
   validates :item_id,               presence: true
-  validates :tokun,                 presence: true
+  validates :token,                 presence: true
   validate  :check_postal_code_format
   validate  :validate_phone_number_format
+
 
   def save
     return false unless valid?
@@ -51,5 +52,6 @@ class Form
         errors.add(:phone_number, "is invalid. Only numbers are allowed")
       end
     end
+
 end
 
